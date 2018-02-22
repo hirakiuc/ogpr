@@ -22,13 +22,44 @@ Or install it yourself as:
 
 ## Usage
 
-```
+```ruby
 require "ogpr"
 
+# Fetch and parse meta tags from the url
 ogp = Ogpr.fetch("http://example.com/path/to/page")
-
-
+# Parse the string as meta tags.
 ogp = Ogpr.parse("<meta ....>")
+
+# Fetch OpenGraph meta tag
+og = ogp.open_graph
+if og
+  og.title
+  og.type
+  og.desc
+  og.image
+  og.url
+  ...
+end
+
+# Fetch TwitterCard meta tag
+card = ogp.twitter_card
+if card
+  card.title
+  card.type
+  card.desc
+  card.image
+  card.url
+  ...
+end
+
+# Fetch OpenGraph or TwitterCard meta tag
+if ogp.exist?
+  ogp.title # og:title or twitter:title
+  ogp.type  # og:type or twitter:card
+  ogp.desc  # og:description or twitter:description
+  ogp.image # og:image or twitter:image
+  ogp.url   # og:url or twitter:url
+end
 ```
 
 ## Development
