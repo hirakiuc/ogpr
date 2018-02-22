@@ -22,7 +22,14 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+```
+require "ogpr"
+
+ogp = Ogpr.fetch("http://example.com/path/to/page")
+
+
+ogp = Ogpr.parse("<meta ....>")
+```
 
 ## Development
 
