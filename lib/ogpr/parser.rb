@@ -25,9 +25,7 @@ module Ogpr
     private
 
     def parse_meta(doc)
-      # TODO: refactoring
-      meta = {}
-      doc.css('meta').each do |elm|
+      doc.css('meta').map do |elm|
         key = nil
         value = nil
         if (elm['property'] =~ /og:\w+/)
@@ -40,11 +38,12 @@ module Ogpr
           value = elm['content'] || elm['value']
         end
 
-        next if key.nil? || key.empty? || value.nil? || value.empty?
-        meta[key] = value
-      end
-
-      meta
+        if key.nil? || key.empty? || value.nil? || value.empty?
+          {}
+        else
+          Hash[key, value]
+        end
+      end.reduce(&:merge)
     end
   end
 end
