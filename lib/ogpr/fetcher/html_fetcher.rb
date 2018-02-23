@@ -37,10 +37,7 @@ module Ogpr
 
       def acceptable_content!(content_type)
         parts = content_type.split(';').map(&:strip)
-
-        parts.each do |part|
-          return if @accept_types.include?(part)
-        end
+        return if parts.any? { |v| @accept_types.include?(v) }
 
         raise "Can't accept content-type: #{content_type}"
       end
@@ -49,7 +46,8 @@ module Ogpr
         options = request_options(method, uri, headers)
         res = RestClient::Request.execute(options)
 
-        raise "Got http status code(#{res.code}) by #{method} request from #{uri}" unless res.code == 200
+        raise "Got http status code(#{res.code}) by #{method} request from #{uri}" \
+          unless res.code == 200
 
         res
       rescue => e

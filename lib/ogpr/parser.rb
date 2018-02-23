@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
 require 'nokogiri'
-require_relative "./result.rb"
+require_relative './result.rb'
 
 module Ogpr
   class Parser
     class << self
-      def parse(str, options = {})
+      def parse(str)
         new(str).parse
       end
     end
@@ -25,7 +25,7 @@ module Ogpr
     private
 
     def parse_meta(doc)
-      # TODO refactoring
+      # TODO: refactoring
       meta = {}
       doc.css('meta').each do |elm|
         key = nil
