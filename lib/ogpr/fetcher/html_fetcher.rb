@@ -12,7 +12,7 @@ module Ogpr
         @uri = URI.parse(uri)
         @accept_types = %w(text/html text/plain)
         @headers = {}
-        @logger = options[:logger] || ::Ogpr::Logger.new(options)
+        @logger = options[:logger] || ::Ogpr::Logger.new($stdout)
       end
 
       def head(headers = {})
@@ -36,9 +36,13 @@ module Ogpr
       private
 
       def acceptable_content!(content_type)
-        acceptable = @accept_types.include?(content_type)
+        parts = content_type.split(';').map(&:strip)
 
-        raise "Can't accept content-type: #{content_type}" unless acceptable
+        parts.each do |part|
+          return if @accept_types.include?(part)
+        end
+
+        raise "Can't accept content-type: #{content_type}"
       end
 
       def send_request(method, uri, headers)
@@ -56,7 +60,7 @@ module Ogpr
       def request_options(method, uri, headers)
         {
           method: method,
-          uri: uri.to_s,
+          url: uri.to_s,
           headers: @headers.merge(headers),
           max_redirects: 10,
           verify_ssl: OpenSSL::SSL::VERIFY_NONE,

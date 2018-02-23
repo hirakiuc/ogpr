@@ -1,12 +1,13 @@
 # frozen_string_literal: true
 
+require 'nokogiri'
+require_relative "./result.rb"
+
 module Ogpr
   class Parser
     class << self
       def parse(str, options = {})
-        parser = new(str)
-        doc = Nokogiri::HTML(html, nil, 'ut-8')
-        meta = parse_meta(doc)
+        new(str).parse
       end
     end
 
@@ -15,10 +16,10 @@ module Ogpr
     end
 
     def parse
-      doc = Nokogiri::HTML(html, nil, 'utf-8')
+      doc = Nokogiri::HTML(@html, nil, 'utf-8')
       meta = parse_meta(doc)
 
-      Ogpr::Result.new(meta)
+      Result.new(meta)
     end
 
     private
@@ -27,7 +28,8 @@ module Ogpr
       # TODO refactoring
       meta = {}
       doc.css('meta').each do |elm|
-        key = nil, value = nil
+        key = nil
+        value = nil
         if (elm['property'] =~ /og:\w+/)
           key = elm['property']
           value = elm['content']
@@ -38,9 +40,11 @@ module Ogpr
           value = elm['content'] || elm['value']
         end
 
-        next if key.blank? or value.blank?
+        next if key.nil? || key.empty? || value.nil? || value.empty?
         meta[key] = value
       end
+
+      meta
     end
   end
 end

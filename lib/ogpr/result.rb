@@ -7,8 +7,11 @@ module Ogpr
     def initialize(meta)
       @open_graph = nil
       @twitter_card = nil
+      @meta = meta
     end
 
-    # TODO Add attribute methods
+    def to_s
+      @meta.to_s
+    end
   end
 end

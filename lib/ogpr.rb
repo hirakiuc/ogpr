@@ -10,7 +10,7 @@ module Ogpr
     def fetch(url, options = {})
       result = Fetcher.fetch(url, options)
 
-      Parser.parse(result, options)
+      Parser.parse(result.to_s)
     end
 
     # Parse the string
