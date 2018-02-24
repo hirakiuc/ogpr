@@ -1,6 +1,8 @@
 # Ogpr
 
 [![CircleCI](https://circleci.com/gh/hirakiuc/ogpr.svg?style=shield&circle-token=332a902a7ec2815346b303dd1aebe68b44ce0ced)](https://circleci.com/gh/hirakiuc/ogpr)
+[![Maintainability](https://api.codeclimate.com/v1/badges/4e0e0aa416b417195cef/maintainability)](https://codeclimate.com/github/hirakiuc/ogpr/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/4e0e0aa416b417195cef/test_coverage)](https://codeclimate.com/github/hirakiuc/ogpr/test_coverage)
 
 Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/ogpr`. To experiment with that code, run `bin/console` for an interactive prompt.
 
