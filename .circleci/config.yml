@@ -21,6 +21,13 @@ jobs:
       - run:
           name: Check lint
           command: bundle exec rake rubocop
+      - run:
+          name: Run unit test
+          command: |
+            bundle exec rake spec
+            bundle exec codeclimate-test-reporter
+          environment:
+            CODECLIMATE_REPO_TOKEN: f0ef66a032c3ce9ca1f11ba16e5f36c45557eaa1ad030db64c7fb55ae2b25274
 
 workflows:
   version: 2
