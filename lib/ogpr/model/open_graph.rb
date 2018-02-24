@@ -14,8 +14,12 @@ module Ogpr
 
       def initialize(hash)
         super hash
-        @key = 'og'
+        @prefix = 'og'
       end
-     end
+
+      def inspect
+        "<Ogpr::Model::OpenGraph @meta=#{@meta}>"
+      end
+    end
   end
 end

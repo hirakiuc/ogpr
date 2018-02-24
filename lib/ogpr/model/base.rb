@@ -9,17 +9,17 @@ module Ogpr
         @meta = hash
         @type = nil
 
-        @key = nil
+        @prefix = nil
       end
 
       %w(title description url image).each do |attr|
         define_method attr.to_sym do
-          @meta["#{@key}:#{attr}"]
+          @meta[with_prefix(attr)]
         end
       end
 
       def keys
-        @meta.keys.map { |v| v.gsub /^#{@key}:/, '' }.sort
+        @meta.keys.map { |v| strip_prefix(v) }.sort
       end
 
       def each_key
@@ -29,7 +29,7 @@ module Ogpr
 
       def each_pair
         return unless block_given?
-        keys.each { |key| yield key, @meta["#{@key}:#{key}"] }
+        keys.each { |key| yield key, @meta[with_prefix(key)] }
       end
 
       def to_s
@@ -37,12 +37,30 @@ module Ogpr
       end
 
       def method_missing(name)
-        super unless @meta.key?("#{@key}:#{name}")
-        @meta["#{@key}:#{name}"]
+        super unless @meta.key?(with_prefix(name))
+        @meta[with_prefix(name)]
       end
 
       def respond_to_missing?(name, include_private = false)
-        @meta.key?("#{@key}:#{name}") or super
+        @meta.key?(with_prefix(name)) or super
+      end
+
+      private
+
+      def strip_prefix(key)
+        if (key.to_s).start_with?(@prefix)
+          (key.to_s).gsub(/^#{@prefix}:/, '')
+        else
+          key.to_s
+        end
+      end
+
+      def with_prefix(key)
+        if (key.to_s).start_with?(@prefix)
+          key.to_s
+        else
+          @prefix + ':' + key.to_s
+        end
       end
     end
   end

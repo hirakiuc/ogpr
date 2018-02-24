@@ -14,7 +14,11 @@ module Ogpr
 
       def initialize(hash)
         super hash
-        @key = 'twitter'
+        @prefix = 'twitter'
+      end
+
+      def inspect
+        "<Ogpr::Model::TwitterCard @meta=#{@meta}>"
       end
     end
   end
