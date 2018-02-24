@@ -18,45 +18,42 @@ module Ogpr
         end
       end
 
+      def [](key)
+        @meta[with_prefix(key)]
+      end
+
       def keys
         @meta.keys.map { |v| strip_prefix(v) }.sort
       end
 
-      def each_key
-        return unless block_given?
+      # rubocop:disable Performance/HashEachMethods
+      def each_key(&block)
+        return unless block
         keys.each { |key| yield key }
       end
 
-      def each_pair
-        return unless block_given?
+      def each_pair(&block)
+        return unless block
         keys.each { |key| yield key, @meta[with_prefix(key)] }
       end
+      # rubocop:enable Performance/HashEachMethods
 
       def to_s
         @meta.to_s
       end
 
-      def method_missing(name)
-        super unless @meta.key?(with_prefix(name))
-        @meta[with_prefix(name)]
-      end
-
-      def respond_to_missing?(name, include_private = false)
-        @meta.key?(with_prefix(name)) or super
-      end
-
       private
 
       def strip_prefix(key)
-        if (key.to_s).start_with?(@prefix)
-          (key.to_s).gsub(/^#{@prefix}:/, '')
+        if key.to_s.start_with?(@prefix)
+          key.to_s.gsub(/^#{@prefix}:/, '')
         else
           key.to_s
         end
       end
 
       def with_prefix(key)
-        if (key.to_s).start_with?(@prefix)
+        if key.to_s.start_with?(@prefix)
           key.to_s
         else
           @prefix + ':' + key.to_s
