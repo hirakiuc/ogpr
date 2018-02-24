@@ -18,7 +18,7 @@ module Ogpr
     end
 
     def open_graph!
-      raise "OpenGraph does not found" unless @open_graph
+      raise 'OpenGraph does not found' unless @open_graph
       @open_graph
     end
 
@@ -27,7 +27,7 @@ module Ogpr
     end
 
     def twitter_card!
-      raise "TwitterCard does not found" unless @twitter_card
+      raise 'TwitterCard does not found' unless @twitter_card
       @twitter_card
     end
 
@@ -40,10 +40,10 @@ module Ogpr
     end
 
     def inspect
-      "<Ogpr::Result @meta=#{self}, " +
-        "@open_graph=#{open_graph.inspect}, " +
-        "@twitter_card=#{twitter_card.inspect}" +
-        ">"
+      "<Ogpr::Result @meta=#{self}, " \
+        "@open_graph=#{open_graph.inspect}, " \
+        "@twitter_card=#{twitter_card.inspect}" \
+        '>'
     end
   end
 end
