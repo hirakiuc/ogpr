@@ -11,6 +11,11 @@ module Ogpr
 
         new(result)
       end
-    end
+
+      def initialize(hash)
+        super hash
+        @key = 'og'
+      end
+     end
   end
 end

@@ -11,6 +11,11 @@ module Ogpr
 
         new(meta)
       end
+
+      def initialize(hash)
+        super hash
+        @key = 'twitter'
+      end
     end
   end
 end
