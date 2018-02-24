@@ -3,12 +3,10 @@
 module Ogpr
   module Model
     class Base < BasicObject
-      attr_reader :meta, :type
+      attr_reader :meta
 
       def initialize(hash)
         @meta = hash
-        @type = nil
-
         @prefix = nil
       end
 

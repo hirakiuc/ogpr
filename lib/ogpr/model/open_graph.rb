@@ -17,6 +17,10 @@ module Ogpr
         @prefix = 'og'
       end
 
+      def type
+        @meta['og:type']
+      end
+
       def inspect
         "<Ogpr::Model::OpenGraph @meta=#{@meta}>"
       end

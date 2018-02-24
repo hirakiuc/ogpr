@@ -23,6 +23,8 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rake", "~> 10.0"
   spec.add_development_dependency "rspec", "~> 3.0"
   spec.add_development_dependency 'rubocop', '~> 0.52.1'
+  spec.add_development_dependency "webmock", "~> 3.3"
+  spec.add_development_dependency "simplecov", "~> 0.15"
   spec.add_dependency 'rest-client', '~> 2.0.2'
   spec.add_dependency 'nokogiri', '~> 1.8'
 end
