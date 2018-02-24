@@ -8,8 +8,8 @@ module Ogpr
     attr_reader :open_graph, :twitter_card
 
     def initialize(meta)
-      @open_graph = Model::OpenGraph.create(meta.select { |k, _| k =~ /^og:\w+/ })
-      @twitter_card = Model::TwitterCard.create(meta.select { |k, _| k =~ /^twitter:\w+/ })
+      @open_graph = Model::OpenGraph.create(meta)
+      @twitter_card = Model::TwitterCard.create(meta)
       @meta = meta
     end
 

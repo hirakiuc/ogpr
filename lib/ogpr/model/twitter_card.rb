@@ -13,7 +13,7 @@ module Ogpr
       end
 
       def initialize(hash)
-        super hash
+        super hash.select { |k, _| k =~ /^twitter:\w+/ }
         @prefix = 'twitter'
       end
 
