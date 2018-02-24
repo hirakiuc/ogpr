@@ -1,5 +1,7 @@
 # Ogpr
 
+[![CircleCI](https://circleci.com/gh/hirakiuc/ogpr.svg?style=shield&circle-token=332a902a7ec2815346b303dd1aebe68b44ce0ced)](https://circleci.com/gh/hirakiuc/ogpr)
+
 Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/ogpr`. To experiment with that code, run `bin/console` for an interactive prompt.
 
 TODO: Delete this and the text above, and describe your gem
@@ -70,7 +72,8 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/ogpr.
+Bug reports and pull requests are welcome on GitHub at https://github.com/hirakiuc/ogpr.
+
 =======
 # ogpr
 a ruby library to fetch and parse meta tags which represent OpenGraph Protocol.
