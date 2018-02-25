@@ -14,14 +14,21 @@ RSpec.describe Ogpr::Model::OpenGraph do
 
   context 'common attributes' do
     context 'when with meta data' do
-      let(:meta) {
+      let(:meta) do
         {
+          'og:type' => 'website',
           'og:title' => 'sample site',
           'og:description' => 'sample site description',
           'og:url' => 'https://example.com/path/to/page',
           'og:image' => 'https://example.com/path/to/image.png'
         }
-      }
+      end
+
+      describe '#type' do
+        it 'should return og:type value' do
+          expect(model.type).to eq('website')
+        end
+      end
 
       describe '#title' do
         it 'should return og:title value' do
@@ -50,6 +57,13 @@ RSpec.describe Ogpr::Model::OpenGraph do
 
     context 'when with empty meta data' do
       let(:meta) { {} }
+
+      describe '#type' do
+        it 'should return og:type value' do
+          expect(model.type).to be_nil
+        end
+      end
+
       describe '#title' do
         it 'should return nil' do
           expect(model.title).to be_nil
@@ -76,8 +90,8 @@ RSpec.describe Ogpr::Model::OpenGraph do
     end
   end
 
-  describe '[] method' do
-    let(:meta) {
+  describe '#[]' do
+    let(:meta) do
       {
         'og:title' => 'sample site',
         'og:description' => 'sample site description',
@@ -86,7 +100,7 @@ RSpec.describe Ogpr::Model::OpenGraph do
         'og:image:width' => 200,
         'og:image:height' => 300
       }
-    }
+    end
 
     context 'when the property exists' do
       it 'should return the meta property value' do
@@ -100,6 +114,31 @@ RSpec.describe Ogpr::Model::OpenGraph do
       it 'should return nil' do
         expect(model['un-existed-prop']).to be_nil
       end
+    end
+  end
+
+  describe '#keys' do
+    let(:meta) do
+      {
+        'og:title' => 'sample site',
+        'og:description' => 'sample site description',
+        'og:url' => 'https://example.com/path/to/page',
+        'og:image:url' => 'https://example.com/path/to/image.png',
+        'og:image:width' => 200,
+        'og:image:height' => 300
+      }
+    end
+
+    it 'should return keys' do
+      expect(model.keys).to match_array([
+       'description', 'image:url', 'image:width', 'image:height', 'title', 'url'
+      ])
+    end
+  end
+
+  describe '#each_key' do
+    let(:meta) do
+
     end
   end
 end
