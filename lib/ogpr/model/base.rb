@@ -2,7 +2,7 @@
 
 module Ogpr
   module Model
-    class Base < BasicObject
+    class Base
       attr_reader :meta
 
       def initialize(hash)

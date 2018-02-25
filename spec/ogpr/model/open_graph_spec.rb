@@ -12,6 +12,39 @@ RSpec.describe Ogpr::Model::OpenGraph do
     end
   end
 
+  describe 'self.create' do
+    context 'with meta which has no og tags' do
+      let(:meta) do
+        {
+          'twitter:card' => 'summary_large_image',
+          'twitter:site' => '@nytimes'
+        }
+      end
+
+      it 'should return nil' do
+        expect(Ogpr::Model::OpenGraph.create(meta)).to be_nil
+      end
+    end
+
+    context 'with meta which has some og tags' do
+      let(:meta) do
+        {
+          'og:type' => 'website',
+          'og:title' => 'sample site',
+          'og:description' => 'sample site description',
+          'og:url' => 'https://example.com/path/to/page',
+          'og:image' => 'https://example.com/path/to/image.png'
+        }
+      end
+
+      it 'should return an instance of the OpenGraph model' do
+        m = Ogpr::Model::OpenGraph.create(meta)
+        expect(m).to be_an_instance_of(Ogpr::Model::OpenGraph)
+        expect(m.meta).to eq(meta)
+      end
+    end
+  end
+
   context 'common attributes' do
     context 'when with meta data' do
       let(:meta) do
@@ -138,7 +171,61 @@ RSpec.describe Ogpr::Model::OpenGraph do
 
   describe '#each_key' do
     let(:meta) do
+      {
+        'og:title' => 'sample site',
+        'og:description' => 'sample site description',
+        'og:url' => 'https://example.com/path/to/page',
+        'og:image:url' => 'https://example.com/path/to/image.png',
+        'og:image:width' => 200,
+        'og:image:height' => 300
+      }
+    end
 
+    it 'should call the block' do
+      expect { |b| model.each_key(&b) }.to yield_successive_args(
+        'description', 'image:height', 'image:url', 'image:width', 'title', 'url'
+      )
+    end
+  end
+
+  describe '#each_pair' do
+    let(:meta) do
+      {
+        'og:title' => 'sample site',
+        'og:description' => 'sample site description',
+        'og:url' => 'https://example.com/path/to/page',
+        'og:image:url' => 'https://example.com/path/to/image.png',
+        'og:image:width' => 200,
+        'og:image:height' => 300
+      }
+    end
+
+    it 'should call the block' do
+      expect { |b| model.each_pair(&b) }.to yield_successive_args(
+        ['description', 'sample site description'],
+        ['image:height', 300],
+        ['image:url', 'https://example.com/path/to/image.png'],
+        ['image:width', 200],
+        ['title', 'sample site'],
+        ['url', 'https://example.com/path/to/page']
+      )
+    end
+  end
+
+  describe '#to_s' do
+    let(:meta) do
+      {
+        'og:title' => 'sample site',
+        'og:description' => 'sample site description',
+        'og:url' => 'https://example.com/path/to/page',
+        'og:image:url' => 'https://example.com/path/to/image.png',
+        'og:image:width' => 200,
+        'og:image:height' => 300
+      }
+    end
+
+    it 'should return the string' do
+      expect(model.to_s).to eq(model.meta.to_s)
     end
   end
 end
