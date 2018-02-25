@@ -1,9 +1,13 @@
 RSpec.describe Ogpr do
-  it "has a version number" do
-    expect(Ogpr::VERSION).not_to be nil
+  describe 'fetch' do
+    pending 'TODO add testcase'
   end
 
-  it "does something useful" do
-    expect(false).to eq(true)
+  describe 'parse' do
+    pending 'TODO add testcase'
+  end
+
+  it "has a version number" do
+    expect(Ogpr::VERSION).not_to be nil
   end
 end

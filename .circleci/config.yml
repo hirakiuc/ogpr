@@ -21,6 +21,11 @@ jobs:
       - run:
           name: Check lint
           command: bundle exec rake rubocop
+      - run:
+          name: Run unit test
+          command: |
+            bundle exec rake spec
+            bundle exec codeclimate-test-reporter
 
 workflows:
   version: 2
