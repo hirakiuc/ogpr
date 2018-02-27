@@ -88,8 +88,8 @@ RSpec.describe Ogpr::Model::OpenGraph do
       end
     end
 
-    context 'when with empty meta data' do
-      let(:meta) { {} }
+    context 'when no common the properties' do
+      let(:meta) { {'og:test' => 'test'} }
 
       describe '#type' do
         it 'should return og:type value' do

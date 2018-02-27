@@ -6,10 +6,9 @@ module Ogpr
   module Model
     class OpenGraph < Base
       def self.create(meta)
-        result = meta.select { |k, _| k =~ /^og:\w+/ }
-        return nil if result.empty?
-
-        new(result)
+        new(meta)
+      rescue
+        nil
       end
 
       def initialize(hash)

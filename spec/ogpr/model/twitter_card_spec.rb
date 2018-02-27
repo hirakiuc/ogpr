@@ -87,7 +87,7 @@ RSpec.describe Ogpr::Model::TwitterCard do
     end
 
     context 'when with empty meta data' do
-      let(:meta) { {} }
+      let(:meta) { {'twitter:test' => 'test'} }
 
       describe '#type' do
         it 'should return og:type value' do

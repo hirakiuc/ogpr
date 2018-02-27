@@ -8,6 +8,8 @@ module Ogpr
       def initialize(hash)
         @meta = hash
         @prefix = nil
+
+        raise 'Meta is empty' if @meta.empty?
       end
 
       %w(title description url image).each do |attr|
