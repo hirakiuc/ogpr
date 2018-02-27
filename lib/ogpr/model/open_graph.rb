@@ -20,10 +20,6 @@ module Ogpr
       def type
         @meta['og:type']
       end
-
-      def inspect
-        "<Ogpr::Model::OpenGraph @meta=#{@meta}>"
-      end
     end
   end
 end

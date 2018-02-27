@@ -20,10 +20,6 @@ module Ogpr
       def type
         @meta['twitter:card']
       end
-
-      def inspect
-        "<Ogpr::Model::TwitterCard @meta=#{@meta}>"
-      end
     end
   end
 end

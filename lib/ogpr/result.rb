@@ -36,14 +36,7 @@ module Ogpr
     end
 
     def to_s
-      @meta.to_s
-    end
-
-    def inspect
-      "<Ogpr::Result @meta=#{self}, " \
-        "@open_graph=#{open_graph.inspect}, " \
-        "@twitter_card=#{twitter_card.inspect}" \
-        '>'
+      "#<Ogpr::Result:#{object_id} @open_graph=#{@open_graph}, @twitter_card=#{@twitter_card}>"
     end
   end
 end

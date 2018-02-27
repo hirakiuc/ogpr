@@ -134,8 +134,8 @@ RSpec.describe Ogpr::Model::TwitterCard do
 
     context 'when the property exists' do
       it 'should return the meta property value' do
-        expect(model['title']).to eq('summary site')
-        expect(model['image']).to eq('https://example.com/path/to/image.png')
+        expect(model['twitter:title']).to eq('summary site')
+        expect(model['twitter:image']).to eq('https://example.com/path/to/image.png')
       end
     end
 
@@ -159,8 +159,64 @@ RSpec.describe Ogpr::Model::TwitterCard do
 
     it 'should return keys' do
       expect(model.keys).to match_array([
-        'card', 'description', 'image', 'site', 'title'
+        'twitter:card', 'twitter:site', 'twitter:title', 'twitter:description', 'twitter:image'
       ])
+    end
+  end
+
+  describe '#each_key' do
+    let(:meta) do
+      {
+        'twitter:card' => 'summary',
+        'twitter:site' => '@twitter',
+        'twitter:title' => 'summary site',
+        'twitter:description' => 'summary description',
+        'twitter:image' => 'https://example.com/path/to/image.png'
+      }
+    end
+
+    it 'should call the block' do
+      expect { |b| model.each_key(&b) }.to yield_successive_args(
+        'twitter:card', 'twitter:site', 'twitter:title', 'twitter:description', 'twitter:image'
+      )
+    end
+  end
+
+  describe '#each_pair' do
+    let(:meta) do
+      {
+        'twitter:card' => 'summary',
+        'twitter:site' => '@twitter',
+        'twitter:title' => 'summary site',
+        'twitter:description' => 'summary description',
+        'twitter:image' => 'https://example.com/path/to/image.png'
+      }
+    end
+
+    it 'should call the block' do
+      expect { |b| model.each_pair(&b) }.to yield_successive_args(
+        ['twitter:card', 'summary'],
+        ['twitter:site', '@twitter'],
+        ['twitter:title', 'summary site'],
+        ['twitter:description', 'summary description'],
+        ['twitter:image', 'https://example.com/path/to/image.png']
+      )
+    end
+  end
+
+  describe '#to_s' do
+    let(:meta) do
+      {
+        'twitter:card' => 'summary',
+        'twitter:site' => '@twitter',
+        'twitter:title' => 'summary site',
+        'twitter:description' => 'summary description',
+        'twitter:image' => 'https://example.com/path/to/image.png'
+      }
+    end
+
+    it 'should return the string' do
+      expect(model.to_s).to match(%r|#<Ogpr::Model::TwitterCard|)
     end
   end
 end
