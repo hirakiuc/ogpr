@@ -5,6 +5,12 @@ module Ogpr
     class Base
       attr_reader :meta
 
+      def self.create(meta)
+        new(meta)
+      rescue
+        nil
+      end
+
       def initialize(hash)
         @meta = hash
         @prefix = nil
