@@ -88,8 +88,8 @@ RSpec.describe Ogpr::Model::OpenGraph do
       end
     end
 
-    context 'when with empty meta data' do
-      let(:meta) { {} }
+    context 'when no common the properties' do
+      let(:meta) { {'og:test' => 'test'} }
 
       describe '#type' do
         it 'should return og:type value' do
@@ -137,9 +137,9 @@ RSpec.describe Ogpr::Model::OpenGraph do
 
     context 'when the property exists' do
       it 'should return the meta property value' do
-        expect(model['title']).to eq('sample site')
-        expect(model['image:url']).to eq('https://example.com/path/to/image.png')
-        expect(model['image:width']).to eq(200)
+        expect(model['og:title']).to eq('sample site')
+        expect(model['og:image:url']).to eq('https://example.com/path/to/image.png')
+        expect(model['og:image:width']).to eq(200)
       end
     end
 
@@ -164,7 +164,7 @@ RSpec.describe Ogpr::Model::OpenGraph do
 
     it 'should return keys' do
       expect(model.keys).to match_array([
-       'description', 'image:url', 'image:width', 'image:height', 'title', 'url'
+       'og:description', 'og:image:url', 'og:image:width', 'og:image:height', 'og:title', 'og:url'
       ])
     end
   end
@@ -183,7 +183,7 @@ RSpec.describe Ogpr::Model::OpenGraph do
 
     it 'should call the block' do
       expect { |b| model.each_key(&b) }.to yield_successive_args(
-        'description', 'image:height', 'image:url', 'image:width', 'title', 'url'
+        'og:title', 'og:description', 'og:url', 'og:image:url', 'og:image:width', 'og:image:height'
       )
     end
   end
@@ -202,12 +202,12 @@ RSpec.describe Ogpr::Model::OpenGraph do
 
     it 'should call the block' do
       expect { |b| model.each_pair(&b) }.to yield_successive_args(
-        ['description', 'sample site description'],
-        ['image:height', 300],
-        ['image:url', 'https://example.com/path/to/image.png'],
-        ['image:width', 200],
-        ['title', 'sample site'],
-        ['url', 'https://example.com/path/to/page']
+        ['og:title', 'sample site'],
+        ['og:description', 'sample site description'],
+        ['og:url', 'https://example.com/path/to/page'],
+        ['og:image:url', 'https://example.com/path/to/image.png'],
+        ['og:image:width', 200],
+        ['og:image:height', 300]
       )
     end
   end
@@ -225,7 +225,7 @@ RSpec.describe Ogpr::Model::OpenGraph do
     end
 
     it 'should return the string' do
-      expect(model.to_s).to eq(model.meta.to_s)
+      expect(model.to_s).to match(%r|#<Ogpr::Model::OpenGraph::|)
     end
   end
 end

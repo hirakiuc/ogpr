@@ -15,20 +15,12 @@ module Ogpr
         @logger = options[:logger] || ::Ogpr::Logger.new($stdout)
       end
 
-      def head(headers = {})
-        send_request(:head, @uri, headers)
-      end
+      def fetch(headers = {})
+        head = send_request(:head, @uri, headers)
+        acceptable_content!(head.headers[:content_type])
 
-      def get(headers = {})
         res = send_request(:get, @uri, headers)
         Kconv.toutf8(res.to_str)
-      end
-
-      def fetch(headers = {})
-        res = head(headers)
-        acceptable_content!(res.headers[:content_type])
-
-        get(headers)
       rescue => e
         raise e
       end
@@ -43,13 +35,11 @@ module Ogpr
       end
 
       def send_request(method, uri, headers)
-        options = request_options(method, uri, headers)
-        res = RestClient::Request.execute(options)
-
-        raise "Got http status code(#{res.code}) by #{method} request from #{uri}" \
-          unless res.code == 200
-
-        res
+        RestClient::Request.execute(
+          request_options(method, uri, headers)
+        )
+      rescue RestClient::ExceptionWithResponse => e
+        raise "Got http status code(#{e.response.code}) by #{method} request from #{uri}"
       rescue => e
         @logger.warn e
         raise e
