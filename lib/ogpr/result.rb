@@ -5,7 +5,7 @@ require_relative './model/twitter_card.rb'
 
 module Ogpr
   class Result
-    attr_reader :open_graph, :twitter_card
+    attr_reader :open_graph, :twitter_card, :meta
 
     def initialize(meta)
       @open_graph = Model::OpenGraph.create(meta)
@@ -17,18 +17,8 @@ module Ogpr
       !@open_graph.nil? || !@twitter_card.nil?
     end
 
-    def open_graph!
-      raise 'OpenGraph does not found' unless @open_graph
-      @open_graph
-    end
-
     def open_graph?
       @open_graph != nil
-    end
-
-    def twitter_card!
-      raise 'TwitterCard does not found' unless @twitter_card
-      @twitter_card
     end
 
     def twitter_card?
