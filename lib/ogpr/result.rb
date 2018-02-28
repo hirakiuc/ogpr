@@ -29,6 +29,7 @@ module Ogpr
       define_method key.to_sym do
         attr = key.to_sym
 
+        # rubocop:disable Style/EmptyElse
         if @open_graph && @twitter_card
           @open_graph.send(attr) || @twitter_card.send(attr)
         elsif @open_graph
@@ -38,6 +39,7 @@ module Ogpr
         else
           nil
         end
+        # rubocop:enable Style/EmptyElse
       end
     end
 
