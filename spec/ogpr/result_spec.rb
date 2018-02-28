@@ -14,7 +14,10 @@ RSpec.describe Ogpr::Result do
 
   let(:twitter_tags) do
     {
+      "twitter:title" => "sample site title",
+      "twitter:description" => "sample site description",
       "twitter:card"=>"summary_large_image",
+      "twitter:image"=> "https://example.com/image.png",
       "twitter:site"=>"@twitter",
       "twitter:creator"=>"@twitter"
     }
@@ -152,6 +155,44 @@ RSpec.describe Ogpr::Result do
     context 'when meta contains both of og/twitter tags' do
       it 'should return true' do
         expect(both_result.twitter_card?).to be_truthy
+      end
+    end
+  end
+
+  describe 'common attributes' do
+    context 'when meta contains no og/twitter tags' do
+      it 'should nil' do
+        expect(empty_result.title).to be_nil
+        expect(empty_result.description).to be_nil
+        expect(empty_result.url).to be_nil
+        expect(empty_result.image).to be_nil
+      end
+    end
+
+    context 'when meta contains only og tags' do
+      it 'should return og values' do
+        expect(og_result.title).to eq('sample site title')
+        expect(og_result.description).to eq('sample site description')
+        expect(og_result.url).to eq('https://example.com/page.html')
+        expect(og_result.image).to eq('https://example.com/image.png')
+      end
+    end
+
+    context 'when meta contains only twitter tags' do
+      it 'should return twitter values' do
+        expect(twitter_result.title).to eq('sample site title')
+        expect(twitter_result.description).to eq('sample site description')
+        expect(twitter_result.url).to be_nil
+        expect(twitter_result.image).to eq('https://example.com/image.png')
+      end
+    end
+
+    context 'when meta contains both of og/twitter tags' do
+      it 'should return og values' do
+        expect(both_result.title).to eq('sample site title')
+        expect(both_result.description).to eq('sample site description')
+        expect(both_result.url).to eq('https://example.com/page.html')
+        expect(both_result.image).to eq('https://example.com/image.png')
       end
     end
   end
