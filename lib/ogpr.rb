@@ -29,8 +29,8 @@ module Ogpr
     #
     # @param str [String] html string which contains TwitterCard/OpenGraph meta tags.
     # @return [Ogpr::Result] the result object which contains TwitterCard/OpenGraph tags.
-    def parse(str, options = {})
-      Parser.parse(str, options)
+    def parse(str)
+      Parser.parse(str)
     end
   end
 end
