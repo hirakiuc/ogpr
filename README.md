@@ -3,6 +3,7 @@
 [![CircleCI](https://circleci.com/gh/hirakiuc/ogpr.svg?style=shield&circle-token=332a902a7ec2815346b303dd1aebe68b44ce0ced)](https://circleci.com/gh/hirakiuc/ogpr)
 [![Maintainability](https://api.codeclimate.com/v1/badges/4e0e0aa416b417195cef/maintainability)](https://codeclimate.com/github/hirakiuc/ogpr/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/4e0e0aa416b417195cef/test_coverage)](https://codeclimate.com/github/hirakiuc/ogpr/test_coverage)
+[![Yard Docs](http://img.shields.io/badge/yard-docs-blue.svg)](http://www.rubydoc.info/github/hirakiuc/ogpr/master)
 
 a ruby library to fetch and parse meta tags which represent OpenGraph Protocol.
 
