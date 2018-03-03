@@ -4,9 +4,7 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/4e0e0aa416b417195cef/maintainability)](https://codeclimate.com/github/hirakiuc/ogpr/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/4e0e0aa416b417195cef/test_coverage)](https://codeclimate.com/github/hirakiuc/ogpr/test_coverage)
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/ogpr`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+a ruby library to fetch and parse meta tags which represent OpenGraph Protocol.
 
 ## Installation
 
@@ -37,32 +35,26 @@ ogp = Ogpr.parse("<meta ....>")
 # Fetch OpenGraph meta tag
 og = ogp.open_graph
 if og
-  og.title
-  og.type
-  og.desc
-  og.image
-  og.url
-  ...
+  og.each_pair do |k, v|
+    puts "#{k} => #{v}"
+  end
 end
 
 # Fetch TwitterCard meta tag
 card = ogp.twitter_card
 if card
-  card.title
-  card.type
-  card.desc
-  card.image
-  card.url
-  ...
+  card.each_pair do |k,v|
+    puts "#{k} => #{v}"
+  end
 end
 
-# Fetch OpenGraph or TwitterCard meta tag
+# Fetch all of OpenGraph and TwitterCard meta tag
 if ogp.exist?
-  ogp.title # og:title or twitter:title
-  ogp.type  # og:type or twitter:card
-  ogp.desc  # og:description or twitter:description
-  ogp.image # og:image or twitter:image
-  ogp.url   # og:url or twitter:url
+  ogp.title       # og:title or twitter:title
+  ogp.type        # og:type or twitter:card
+  ogp.description # og:description or twitter:description
+  ogp.image       # og:image or twitter:image
+  ogp.url         # og:url or twitter:url
 end
 ```
 
@@ -75,7 +67,3 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/hirakiuc/ogpr.
-
-=======
-# ogpr
-a ruby library to fetch and parse meta tags which represent OpenGraph Protocol.
