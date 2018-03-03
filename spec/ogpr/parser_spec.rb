@@ -28,8 +28,7 @@ RSpec.describe Ogpr::Parser do
           'og:description' => 'sample page description',
           'og:url' => 'https://example.com/page.html',
           'og:image' => 'https://example.com/image.png',
-          'og:type' => 'article',
-
+          'og:type' => 'article'
         })
 
         expect(result.twitter_card).to be_an_instance_of(Ogpr::Model::TwitterCard)
