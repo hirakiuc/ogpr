@@ -5,7 +5,7 @@
 [![Test Coverage](https://api.codeclimate.com/v1/badges/4e0e0aa416b417195cef/test_coverage)](https://codeclimate.com/github/hirakiuc/ogpr/test_coverage)
 [![Yard Docs](http://img.shields.io/badge/yard-docs-blue.svg)](http://www.rubydoc.info/github/hirakiuc/ogpr/master)
 
-a ruby library to fetch and parse meta tags which represent OpenGraph Protocol.
+a ruby library to fetch and parse meta tags which represent OpenGraph Protocol and TwitterCard.
 
 ## Installation
 
