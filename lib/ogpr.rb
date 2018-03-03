@@ -11,9 +11,8 @@ module Ogpr
     #
     # @param url [String] the target URL to fetch TwitterCard/OpenGraph meta tags from.
     # @return [Ogpr::Result] the result object which contains TwitterCard/OpenGraph tags.
-    def fetch(url, options = {})
-      result = Fetcher.fetch(url, options)
-
+    def fetch(url)
+      result = Fetcher.fetch(url)
       Parser.parse(result.to_s)
     end
 

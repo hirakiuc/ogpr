@@ -3,16 +3,13 @@
 require 'uri'
 require 'rest-client'
 require 'kconv'
-require_relative '../logger.rb'
 
 module Ogpr
   class Fetcher
     class HtmlFetcher
-      def initialize(uri, options = {})
-        @uri = URI.parse(uri)
+      def initialize(url)
+        @uri = URI.parse(url)
         @accept_types = %w(text/html text/plain)
-        @headers = {}
-        @logger = options[:logger] || ::Ogpr::Logger.new($stdout)
       end
 
       def fetch(headers = {})
@@ -41,7 +38,6 @@ module Ogpr
       rescue RestClient::ExceptionWithResponse => e
         raise "Got http status code(#{e.response.code}) by #{method} request from #{uri}"
       rescue => e
-        @logger.warn e
         raise e
       end
 
@@ -49,7 +45,7 @@ module Ogpr
         {
           method: method,
           url: uri.to_s,
-          headers: @headers.merge(headers),
+          headers: headers,
           max_redirects: 10,
           verify_ssl: OpenSSL::SSL::VERIFY_NONE,
           timeout: 30
