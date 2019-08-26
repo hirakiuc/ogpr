@@ -28,6 +28,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "simplecov", "~> 0.14.1"
   spec.add_development_dependency "coveralls", "~> 0.8.21"
   spec.add_development_dependency "codeclimate-test-reporter", "~> 1.0"
-  spec.add_dependency 'rest-client', '~> 2.0.2'
+  spec.add_dependency 'rest-client', '~> 2.1.0'
   spec.add_dependency 'nokogiri', '~> 1.8'
 end
