@@ -19,15 +19,13 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  spec.add_development_dependency "bundler", "~> 1.17.3"
-  spec.add_development_dependency "rake", "~> 10.0"
+  spec.add_development_dependency "bundler", ">= 1.17.3"
+  spec.add_development_dependency "rake", "~> 13.1.0"
   spec.add_development_dependency "rspec", "~> 3.0"
-  spec.add_development_dependency "sinatra", "~> 2.0.1"
-  spec.add_development_dependency 'rubocop', '~> 0.52.1'
-  spec.add_development_dependency "webmock", "~> 3.3.0"
-  spec.add_development_dependency "simplecov", "~> 0.14.1"
-  spec.add_development_dependency "coveralls", "~> 0.8.21"
-  spec.add_development_dependency "codeclimate-test-reporter", "~> 1.0"
-  spec.add_dependency 'rest-client', '~> 2.1.0'
+  spec.add_development_dependency "sinatra", "~> 4.0.0"
+  spec.add_development_dependency 'rubocop', "~> 1.60.2"
+  spec.add_development_dependency "webmock", "~> 3.20.0"
+  spec.add_development_dependency "simplecov", "~> 0.22.0"
+  spec.add_dependency 'http', '~> 5.2.0'
   spec.add_dependency 'nokogiri', '~> 1.8'
 end
