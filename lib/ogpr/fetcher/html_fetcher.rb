@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'uri'
-require 'rest-client'
+require 'http'
 require 'kconv'
 
 module Ogpr
