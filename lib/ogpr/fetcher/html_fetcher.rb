@@ -17,7 +17,6 @@ module Ogpr
         acceptable_content!(head.headers[:content_type])
 
         res = send_request(:get, @uri, headers)
-        Kconv.toutf8(res.to_str)
       rescue => e
         raise e
       end
