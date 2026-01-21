@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
 require 'uri'
-require 'rest-client'
-require 'kconv'
+require 'http'
 
 module Ogpr
   class Fetcher
@@ -17,7 +16,7 @@ module Ogpr
         acceptable_content!(head.headers[:content_type])
 
         res = send_request(:get, @uri, headers)
-        Kconv.toutf8(res.to_str)
+        res.encode("UTF-8", invalid: :replace, undef: :replace)
       rescue => e
         raise e
       end
@@ -32,11 +31,11 @@ module Ogpr
       end
 
       def send_request(method, uri, headers)
-        RestClient::Request.execute(
-          request_options(method, uri, headers)
-        )
-      rescue RestClient::ExceptionWithResponse => e
-        raise "Got http status code(#{e.response.code}) by #{method} request from #{uri}"
+        HTTP.headers(headers).send(method, uri).tap do |res|
+          next if res.status.success?
+
+          raise "Got http status code(#{res.status.code}) by #{method} request from #{uri}"
+        end
       rescue => e
         raise e
       end
